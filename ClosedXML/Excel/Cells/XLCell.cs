@@ -651,7 +651,14 @@ namespace ClosedXML.Excel
                 if (!String.IsNullOrWhiteSpace(_formulaA1) ||
                     !String.IsNullOrEmpty(_formulaR1C1))
                 {
-                    return Evaluate();
+                    try
+                    {
+                        return Evaluate();
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
                 }
 
                 var cellValue = HasRichText ? _richText.ToString() : _cellValue;

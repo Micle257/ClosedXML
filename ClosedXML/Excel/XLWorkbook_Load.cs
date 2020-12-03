@@ -640,7 +640,12 @@ namespace ClosedXML.Excel
                             if (pivotTableStyle != null)
                             {
                                 if (pivotTableStyle.Name != null)
-                                    pt.Theme = (XLPivotTableTheme)Enum.Parse(typeof(XLPivotTableTheme), pivotTableStyle.Name);
+                                {
+                                    if (Enum.TryParse<XLPivotTableTheme>(pivotTableStyle.Name, out var legacyTableTheme))
+                                    {
+                                        pt.Theme = legacyTableTheme;
+                                    }
+                                }
                                 else
                                     pt.Theme = XLPivotTableTheme.None;
 
